@@ -66,3 +66,12 @@ $statement->execute();
 //5. Process the results (if any)
 $id = $dbh->lastInsertId();
 echo "<p>Student $sid was inserted successfully!</p>";
+
+echo "<h1>Add New Student</h1>";
+echo "<form action="\#" method="post"">
+                <label for="firstName">First Name</label>
+
+                        <a type ="button"
+                           href="#">Submit</a>
+
+        </form>"
