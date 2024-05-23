@@ -33,7 +33,9 @@ $statement->execute();
 
 //Process the result
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+echo "<ol>";
 foreach ($result as $row)
 {
-    echo "<p>".$row['last'].", ".$row['first']."</p>";
+    echo "<li>".$row['last'].", ".$row['first']."</li>";
 }
+echo "</ol>";
