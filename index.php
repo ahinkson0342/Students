@@ -40,38 +40,96 @@ foreach ($result as $row)
 }
 echo "</ol>";
 
-//PDO
-//1. Define the query
-$sql = 'INSERT INTO student (sid, last, first, birthdate, advisor)
-VALUES (:sid, :last, :first, :birthdate, :advisor)';
-
-//2. Prepare the statement
-$statement = $dbh->prepare($sql);
-
-//3. Bind the parameters
-$sid = '253-867-5309';
-$last = 'Doe';
-$first = 'John';
-$birthdate = '2003-02-10';
-$advisor = '1';
-$statement->bindParam(':sid', $sid);
-$statement->bindParam(':last', $last);
-$statement->bindParam(':first', $first);
-$statement->bindParam(':birthdate', $birthdate);
-$statement->bindParam(':advisor', $advisor);
-
-//4. Execute the query
-$statement->execute();
-
-//5. Process the results (if any)
-$id = $dbh->lastInsertId();
-echo "<p>Student $sid was inserted successfully!</p>";
+////PDO
+////1. Define the query
+//$sql = 'INSERT INTO student (sid, last, first, birthdate, advisor)
+//VALUES (:sid, :last, :first, :birthdate, :advisor)';
+//
+////2. Prepare the statement
+//$statement = $dbh->prepare($sql);
+//
+////3. Bind the parameters
+//$sid = '253-867-5309';
+//$last = 'Doe';
+//$first = 'John';
+//$birthdate = '2003-02-10';
+//$advisor = '1';
+//$statement->bindParam(':sid', $sid);
+//$statement->bindParam(':last', $last);
+//$statement->bindParam(':first', $first);
+//$statement->bindParam(':birthdate', $birthdate);
+//$statement->bindParam(':advisor', $advisor);
+//
+////4. Execute the query
+//$statement->execute();
+//
+////5. Process the results (if any)
+//$id = $dbh->lastInsertId();
+//echo "<p>Student $sid was inserted successfully!</p>";
 
 echo "<h1>Add New Student</h1>";
-echo "<form action="\#" method="post"">
-                <label for="firstName">First Name</label>
+echo '<form action="#" method="POST">
+    <div>
+        <label for="SID">SID</label>
+        <input type="text" id="SID" name="SID" placeholder="Enter SID">
+    </div>
+    <div>
+        <label for="lName">Last Name</label>
+        <input type="text" id="lName" name="lName" placeholder="Enter Last Name">
+    </div>
+    <div>
+        <label for="fName">First Name</label>
+        <input type="text" id="fName" name="fName" placeholder="Enter First Name">
+    </div>
+    <div>
+        <label for="DoB">Date of Birth</label>
+        <input type="text" id="DoB" name="DoB" placeholder="Enter Birth Date YYYY-MM-DD">
+    </div>
+    <div>
+        <label for="GPA">GPA</label>
+        <input type="text" id="GPA" name="GPA" placeholder="Enter GPA">
+    </div>
+    <div>
+        <label for="advisor">Advisor</label>
+        <input type="text" id="advisor" name="advisor" placeholder="Enter Advisor">
+    </div>
+    <div class="form-group col-sm-4 flex-column d-flex">
+        <button type="submit">Submit</button>
+    </div>
 
-                        <a type ="button"
-                           href="#">Submit</a>
 
-        </form>"
+</form>';
+
+if($_SERVER['REQUEST_METHOD'] == "POST")
+{
+    $SID = $_POST['SID'];
+    $lName = $_POST['lName'];
+    $fName = $_POST['fName'];
+    $DoB = $_POST['DoB'];
+    $GPA = $_POST['GPA'];
+    $advisor = $_POST['advisor'];
+
+    if (isset($SID) && isset($lName) && isset($fName))
+    {
+        //PDO
+        //1. Define the query
+        $sql = 'INSERT INTO student (sid, last, first, birthdate, advisor)
+        VALUES (:sid, :last, :first, :birthdate, :advisor)';
+
+        //2. Prepare the statement
+        $statement = $dbh->prepare($sql);
+
+        //3. Bind the parameters
+        $statement->bindParam(':sid', $SID);
+        $statement->bindParam(':last', $lName);
+        $statement->bindParam(':first', $fName);
+        $statement->bindParam(':birthdate', $DoB);
+        $statement->bindParam(':advisor', $advisor);
+
+        //4. Execute the query
+        $statement->execute();
+
+        //5. Process the results (if any)
+        echo "<p>Student $SID was inserted successfully! $fName $lName $DoB $advisor</p>";
+    }
+}
